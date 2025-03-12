@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import userRoute from "./routes/userRoute.js";
-
+import { AdminSeeder } from "./seeders/AdminSeeder.js";
 dotenv.config();
 const app = express();
 const port = 3000;
@@ -21,6 +21,9 @@ mongoose
   .catch((err) => {
     console.log("DB Failed to Connect!" + err);
   });
+
+//Admin Seeder
+AdminSeeder();
 
 // Routes
 app.use("/api/auth", userRoute);

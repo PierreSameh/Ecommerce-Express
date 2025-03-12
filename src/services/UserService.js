@@ -23,7 +23,10 @@ export const register = async (firstName, lastName, email, password) => {
     });
     user.save();
     //Generate JWT
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.JWT_SECRET
+    );
     return {
       message: "User Registered Successfully",
       data: {
@@ -50,7 +53,10 @@ export const login = async (email, password) => {
       error.statusCode = 400;
       throw error;
     }
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.JWT_SECRET
+    );
     return {
       message: "User Logged In Successfully",
       data: {
