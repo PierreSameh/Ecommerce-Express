@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
+
+dotenv.config();
 const app = express();
 const port = 3000;
 
@@ -14,7 +16,7 @@ app.use(
 );
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/ecommerce")
+  .connect(process.env.MONGO_URI)
   .then(console.log("DB Connected"))
   .catch((err) => {
     console.log("DB Failed to Connect!" + err);
