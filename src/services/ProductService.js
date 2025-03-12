@@ -29,7 +29,7 @@ export const getAllProducts = async () => {
       return {
         ...product.toObject(),
         images: product.images.map((image) => {
-          return `${process.env.APP_URL}${process.env.APP_PORT}${image}`;
+          return `${process.env.APP_URL}${image}`;
         }),
       };
     });
@@ -48,7 +48,7 @@ export const getProductById = async (id) => {
       throw error;
     }
     product.images = product.images.map((image) => {
-      return `${process.env.APP_URL}${process.env.APP_PORT}${image}`;
+      return `${process.env.APP_URL}${image}`;
     });
     return product;
   } catch (error) {
