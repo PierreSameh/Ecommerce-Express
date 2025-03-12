@@ -5,5 +5,5 @@ const router = express.Router();
 
 router.post("/register", validateRegister, registerUser);
 
-const authRoutes = router;
-export default authRoutes;
+const userRoutes = router;
+export default userRoutes;
