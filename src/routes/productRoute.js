@@ -2,6 +2,7 @@ import multer from "multer";
 import express from "express";
 import { uploadProductImages } from "../middlewares/ProductImagesMiddleware.js";
 import {
+  destroy,
   index,
   show,
   store,
@@ -16,4 +17,5 @@ router.post("/", uploadProductImages, adminMiddleware, validateStore, store);
 router.get("/", index);
 router.get("/:id", show);
 router.put("/:id", uploadProductImages, adminMiddleware, validateStore, update);
+router.delete("/:id", adminMiddleware, destroy);
 export default router;

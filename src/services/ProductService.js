@@ -73,20 +73,39 @@ export const updateProduct = async (req, id) => {
       (file) => `/uploads/products/${file.filename}`
     );
 
-    product.update({
+    product.set({
       title,
       description,
       images: imagesPaths,
       price,
       stock,
     });
-
+    await product.save();
     return {
       message: "Product Updated Successfully",
       data: {
         product: product,
       },
     };
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteProduct = async (id) => {
+  try {
+    const product = await Product.findById(id);
+    if (!product) {
+      let error = new Error("Product Not Found");
+      error.statusCode = 404;
+      throw error;
+    }
+    if (product.images.length > 0) {
+      deleteMultipleFiles(product.images);
+    }
+
+    await product.deleteOne();
+    return { message: "Product Deleted Successfully" };
   } catch (error) {
     throw error;
   }

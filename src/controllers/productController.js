@@ -1,6 +1,7 @@
 import { validationResult } from "express-validator";
 import {
   createProduct,
+  deleteProduct,
   getAllProducts,
   getProductById,
   updateProduct,
@@ -54,5 +55,16 @@ export const update = async (req, res) => {
   } catch (error) {
     const statusCode = error.statusCode || 500;
     res.status(statusCode).json({ message: error.message });
+  }
+};
+
+export const destroy = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await deleteProduct(id);
+    res.status(200).json(response);
+  } catch (error) {
+    const statusCode = error.statusCode || 500;
+    res.status(statusCode).json(error.message);
   }
 };
