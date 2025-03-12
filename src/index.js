@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import userRoutes from "./routes/userRoutes.js";
+import userRoute from "./routes/userRoute.js";
 
 dotenv.config();
 const app = express();
@@ -23,7 +23,7 @@ mongoose
   });
 
 // Routes
-app.use("/api/auth", userRoutes);
+app.use("/api/auth", userRoute);
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
