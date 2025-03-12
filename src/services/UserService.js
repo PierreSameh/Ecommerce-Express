@@ -33,8 +33,10 @@ export const register = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
     return {
       message: "User Registered Successfully",
-      user: user,
-      token: token,
+      data: {
+        user: user,
+        token: token,
+      },
     };
   } catch (error) {
     throw error;
