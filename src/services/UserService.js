@@ -1,23 +1,16 @@
 import { User } from "../models/User.js";
-import { validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-export const register = async (req, res) => {
-  // Validate request
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
-
-  const { firstName, lastName, email, password } = req.body;
-
+export const register = async (firstName, lastName, email, password) => {
   try {
     let user = await User.findOne({ email });
     if (user) {
-      res.status(400).json({ message: "User Already Exists" });
+      const error = new Error("User Already Exists");
+      error.statusCode = 400;
+      throw error;
     }
     //Hash Password
     const hashedPassword = await bcrypt.hash(password, 10);
